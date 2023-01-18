@@ -10,14 +10,53 @@ const Cart = [
 ];
 export const List = () => {
   const [data, setData] = useState(Cart);
+  const [search,setSearch]=useState([])
   const [cart, setCart] = useState([]);
   const [show, setShow] = useState(false);
   const addToCart = (product) => {
     setCart([...cart, { ...product }]);
-  };
-  console.log(cart);
+  }
+
+ // console.log(cart);
+ const handleChange=(e)=>{
+setSearch(e.target.value);
+const value = data.filter((item) => 
+item.product.toLowerCase().includes(e.target.value.toLowerCase()));
+ setData(value);
+}
+const ascendingEvent = () => {
+     
+     
+      let result = [...data].sort((a,b) =>
+       a.price-b.price)
+      setData(result)
+     
+  }
+  const descendingEvent = () => {
+     
+     
+      let result = [...data].sort((a,b) => 
+       b.price-a.price)
+      setData(result)
+     
+    }
+  
   return (
     <>
+      <input
+        type="search"
+        placeholder="product"
+        value={search}
+        onChange={handleChange}
+      />
+      <br />
+      <h3>Filter By Price</h3>
+      <button onClick={ascendingEvent}>Ascending</button>
+      <button style={{ margin: "10px" }} onClick={descendingEvent}>
+        Descending
+      </button>
+     
+      <br />
       <Header count={cart.length} setShow={setShow} />
       {show ? (
         <CartList cart={cart} setCart={setCart} />
@@ -26,4 +65,4 @@ export const List = () => {
       )}
     </>
   );
-};
+}

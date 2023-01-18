@@ -1,6 +1,7 @@
 export const ProductList = ({ addToCart, data, setData }) => {
   return (
     <>
+    
       {data.map((el, id) => (
         <div key={id}>
           <p>Id:{el.id}</p>
